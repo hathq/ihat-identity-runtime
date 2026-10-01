@@ -1,0 +1,23 @@
+{
+  "schema": "ihat.identity.trust-boundary-acceptance.v1",
+  "cases": [
+    {"id":"ID-13","case":"expired fresh authentication","expected":"trusted-evidence-expired"},
+    {"id":"ID-14","case":"future fresh authentication","expected":"trusted-evidence-from-future"},
+    {"id":"ID-15","case":"unverified authentication","expected":"authentication-evidence-unverified"},
+    {"id":"ID-16","case":"unsigned device attestation","expected":"device-attestation-unverified"},
+    {"id":"ID-17","case":"unverified device key possession","expected":"device-key-possession-unverified"},
+    {"id":"ID-18","case":"expired device evidence","expected":"trusted-evidence-expired"},
+    {"id":"ID-19","case":"unsigned session issue proof","expected":"session-sender-proof-unverified"},
+    {"id":"ID-20","case":"unsigned session authorization proof","expected":"session-sender-proof-unverified"},
+    {"id":"ID-21","case":"expired session sender proof","expected":"trusted-evidence-expired"},
+    {"id":"ID-22","case":"unauthorized revocation","expected":"revocation-authority-unverified"},
+    {"id":"ID-23","case":"expired revocation authorization","expected":"trusted-evidence-expired"},
+    {"id":"ID-24","case":"unsigned recovery approval","expected":"recovery-approval-unverified"},
+    {"id":"ID-25","case":"future recovery approval","expected":"trusted-evidence-from-future"},
+    {"id":"ID-26","case":"unverified recovery replacement key","expected":"device-key-possession-unverified"},
+    {"id":"ID-27","case":"unsigned assertion sender proof","expected":"session-sender-proof-unverified"},
+    {"id":"ID-28","case":"assertion sender proof cannot be replayed","expected":"identity-operation-replayed"},
+    {"id":"ID-29","case":"invalid verifier time window","expected":"trusted-evidence-window-invalid"},
+    {"id":"ID-30","case":"trusted clock failure","expected":"trusted-clock-unavailable"}
+  ]
+}

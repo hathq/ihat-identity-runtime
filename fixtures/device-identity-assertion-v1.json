@@ -1,0 +1,17 @@
+{
+  "schema": "ihat://identity/device-identity-assertion/v1",
+  "issuer": "https://id.ihat.invalid",
+  "audience": "crowsi-local-bridge",
+  "service_id": "service-a",
+  "pairwise_subject": "ps-1623ad2e69a4ac4f7e08458575056aa1b8eb6577d39713cdd55079b232981693",
+  "device_id": "device-a",
+  "device_proof_key_ref": "device-proof:key-a",
+  "session_ref": "sref_0000000000000000000000000000000000000000000000000000000000000001",
+  "device_posture": { "state": "compliant", "revision": 1 },
+  "revocation_epochs": { "subject": 1, "service": 1, "device": 1, "session": 1 },
+  "issued_at_epoch_s": 1786300000,
+  "expires_at_epoch_s": 1786300060,
+  "nonce": "fixture-nonce-01",
+  "key_id": "identity-signing-key-v1",
+  "signature": "sha256:a3033caf73c4592c5a82eb537f484e6e2c49182cb1952f15f1bba1f16f2166d8"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ihat://identity/runtime-command/v1",
+  "title": "iHAT identity runtime bounded command envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["operation", "proof_id"],
+  "properties": {
+    "schema": { "const": "ihat://identity/runtime-command/v1" },
+    "operation": { "const": "authorize-session" },
+    "proof_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:/-]+$"
+    }
+  },
+  "maxProperties": 3
+}
