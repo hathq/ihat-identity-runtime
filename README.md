@@ -11,11 +11,11 @@ Maintain account, service-account, device, session and revocation relationships 
 
 Use the current 0.1.0 contract. Synced passkeys authenticate a user but are not treated as device identity.
 
-Package distribution is not activated by this documentation. Use the checked-in source and the declared dependency versions; published availability must be verified separately.
+This is an independently packaged Rust library. Cargo dependencies are resolved from crates.io; runtime authority, network and storage configuration remain caller-owned.
 
 ## Getting started
 
-Install Rust 1.97 or newer and make the declared dependencies available. Use the configured private registry when a dependency is not distributed publicly. Run from this repository:
+Install Rust 1.97 or newer and make the declared dependencies available. No private dependency registry or sibling source checkout is required. Run from this repository:
 
 ```sh
 cargo test --locked
