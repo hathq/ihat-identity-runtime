@@ -60,3 +60,13 @@ Schema definitions in the map remain owned by their canonical validator and
 consumers. An absent schema file means no separate schema file is declared; it does
 not mean the runtime interface has no validation. Do not introduce another common
 schema solely to mirror an implementation type.
+
+## Current identity failure contract
+
+`RuntimeError` and `schemas/runtime-reason-codes-v1.json` contain operationally
+reachable identity failures. The unused `NotImplemented` variant/reason is removed
+from the source candidate after checking managed consumers; unavailable clock,
+signer, persistence and unverified evidence keep their specific failures. This is
+a source API change for a future reviewed version, not a rewrite of a published
+artifact. Identity evidence verification, revocation, recovery and persistence
+acceptance continue to use the owner runtime's functional tests.

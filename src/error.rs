@@ -2,7 +2,6 @@ use crate::{EvidenceKind, RevocationScope};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum RuntimeError {
-    NotImplemented,
     FreshAuthenticationRequired,
     EvidenceUnverified(EvidenceKind),
     EvidenceExpired(EvidenceKind),
@@ -106,7 +105,6 @@ impl RuntimeError {
             StatusSignerUnavailable => "current-device-status-signer-unavailable",
             SignatureInvalid => "device-assertion-signature-invalid",
             PersistenceFailure => "identity-persistence-failed",
-            NotImplemented => "identity-runtime-not-implemented",
         }
     }
 }

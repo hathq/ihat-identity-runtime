@@ -22,7 +22,6 @@
     "identity-record-already-exists",
     "identity-record-not-found",
     "identity-request-invalid",
-    "identity-runtime-not-implemented",
     "identity-wire-unknown-field",
     "installer-bootstrap-unverified",
     "pairwise-service-mismatch",
