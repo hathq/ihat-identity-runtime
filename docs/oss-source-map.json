@@ -1,0 +1,210 @@
+{
+  "repository": "hathq/ihat-identity-runtime",
+  "purpose": "Maintain account, service-account, device, session and revocation relationships in an owner-local authority.",
+  "responsibility_boundary": "Own only the documented product/interface scope. Reuse applicable managed common components without forcing unrelated dependencies. Separate synthetic source acceptance from actual account, data and deployment acceptance.",
+  "packages": [
+    {
+      "manifest": "Cargo.toml",
+      "package": "ihat-identity-runtime",
+      "ecosystem": "rust",
+      "description": "Durable owner-local identity authority runtime",
+      "interfaces": {
+        "lib": "src/lib.rs",
+        "features": {},
+        "bins": [],
+        "public_modules": [],
+        "public_reexports": [
+          "assertion::{\n    AssertionSigner, CurrentDeviceIdentityAssertionRequest, DeviceIdentityAssertionRequest,\n    DeviceIdentityEvidenceV1, MAX_CURRENT_IDENTITY_TTL_SECONDS, SystemClock, TrustedClock,\n}",
+          "contract::IdentityRuntimeContract",
+          "error::RuntimeError",
+          "ihat_identity_assertion_contracts::{\n    AssertionError, AssertionVerifier, CURRENT_DEVICE_STATUS_SCHEMA, CurrentDeviceStatusV1,\n    DEVICE_IDENTITY_ASSERTION_SCHEMA, DeviceIdentityAssertionV1, DevicePostureV1,\n    RevocationEpochsV1, canonical_assertion_payload, canonical_current_status_payload,\n    current_status_matches_assertion, decode_assertion_strict, decode_current_status_strict,\n    verify_assertion_at, verify_current_status_at,\n}",
+          "model::*",
+          "pairwise::PairwiseSubjectDeriver",
+          "peer_status::{DevicePeerStatus, read_device_peer_status}",
+          "reasons::*",
+          "runtime::IdentityRuntime",
+          "store::{DurableState, FileDurableState}",
+          "store::{DurableStateFailpoint, arm_durable_state_failpoint}",
+          "trust::*",
+          "trust_bundle::*",
+          "validation::*"
+        ],
+        "implicit_bins": []
+      },
+      "declared_commands": {}
+    }
+  ],
+  "schema_definitions": [
+    "schemas/identity-runtime-command-v1.schema.json",
+    "schemas/runtime-reason-codes-v1.json"
+  ],
+  "test_sources": [
+    "src/contract.rs",
+    "src/contract_impl.rs",
+    "src/runtime/inspection.rs",
+    "src/runtime/revocation_preparation.rs",
+    "src/runtime/revocation_preparation_guard.rs",
+    "src/store/file.rs",
+    "src/store/file_anchor.rs",
+    "src/store/tests_schema.rs",
+    "tests/bootstrap_reconciliation.rs",
+    "tests/current_device_status.rs",
+    "tests/current_device_status/status_01.rs",
+    "tests/current_device_status/status_02.rs",
+    "tests/current_device_status/status_03.rs",
+    "tests/current_identity_resolution.rs",
+    "tests/current_identity_resolution/establish_cas.rs",
+    "tests/current_identity_resolution/establish_failpoint.rs",
+    "tests/current_identity_resolution/establish_recovery.rs",
+    "tests/current_identity_resolution/fail_closed.rs",
+    "tests/current_identity_resolution/id_51.rs",
+    "tests/current_identity_resolution/replay.rs",
+    "tests/device_identity_assertion.rs",
+    "tests/device_identity_assertion/device_01.rs",
+    "tests/device_identity_assertion/device_02.rs",
+    "tests/device_peer_status.rs",
+    "tests/device_session_cascade.rs",
+    "tests/device_session_cascade/cascade_01.rs",
+    "tests/device_session_cascade/cascade_02.rs",
+    "tests/file_durable_state.rs",
+    "tests/file_durable_state/file_01.rs",
+    "tests/file_durable_state/file_02.rs",
+    "tests/file_durable_state/file_03.rs",
+    "tests/initial_bootstrap.rs",
+    "tests/initial_bootstrap/bootstrap_01.rs",
+    "tests/initial_bootstrap/bootstrap_02.rs",
+    "tests/multidevice_identity.rs",
+    "tests/multidevice_identity/multidevice_01.rs",
+    "tests/multidevice_identity/multidevice_02.rs",
+    "tests/multidevice_identity/multidevice_03.rs",
+    "tests/multidevice_identity/multidevice_04.rs",
+    "tests/multidevice_identity/multidevice_05.rs",
+    "tests/multidevice_identity/multidevice_06.rs",
+    "tests/package_contract.rs",
+    "tests/production_trust_boundary.rs",
+    "tests/revocation_preparation.rs",
+    "tests/revocation_preparation/authorization.rs",
+    "tests/revocation_preparation/crash.rs",
+    "tests/revocation_preparation/locks.rs",
+    "tests/revocation_preparation/persistence.rs",
+    "tests/revocation_preparation/preflight.rs",
+    "tests/revocation_preparation/preparation_support_01.rs",
+    "tests/revocation_preparation/preparation_support_02.rs",
+    "tests/revocation_preparation/preparation_support_03.rs",
+    "tests/revocation_preparation/tombstone.rs",
+    "tests/revocation_recovery.rs",
+    "tests/revocation_recovery/crash_anchor.rs",
+    "tests/source_limits.rs",
+    "tests/support/chunks/support_01.rs",
+    "tests/support/chunks/support_02.rs",
+    "tests/support/chunks/support_03.rs",
+    "tests/support/chunks/support_04.rs",
+    "tests/support/mod.rs",
+    "tests/trust_boundary.rs",
+    "tests/trust_boundary/trust_01.rs",
+    "tests/trust_boundary/trust_02.rs",
+    "tests/trust_boundary/trust_03.rs",
+    "tests/trust_boundary/trust_04.rs",
+    "tests/trust_boundary/trust_05.rs"
+  ],
+  "example_sources": [],
+  "workflow_definitions": [
+    {
+      "path": ".github/workflows/cargo-package.yml",
+      "jobs": [
+        {
+          "job": "cargo-package",
+          "condition": null,
+          "runs_on": "ubuntu-24.04",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Isolate public registry configuration and build output",
+              "run": "echo \"CARGO_HOME=$RUNNER_TEMP/public-cargo-home\" >> \"$GITHUB_ENV\"\necho \"CARGO_TARGET_DIR=$RUNNER_TEMP/public-cargo-target\" >> \"$GITHUB_ENV\"\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Install the declared Rust toolchain",
+              "run": "rustup toolchain install 1.97 --profile minimal --component rustfmt --component clippy",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Check formatting and all-feature lints",
+              "run": "cargo +1.97 fmt --all -- --check\ncargo +1.97 clippy --locked --all-targets --all-features -- -D warnings\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Exercise behavioral and documentation tests",
+              "run": "cargo +1.97 test --locked --all-features",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Generate and build the independent public package",
+              "run": "cargo +1.97 package --locked --registry crates-io",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Record exact source and package bytes",
+              "run": "mkdir -p \"$GITHUB_WORKSPACE/outgoing\"\ncp \"$CARGO_TARGET_DIR/package/ihat-identity-runtime-0.1.0.crate\" \"$GITHUB_WORKSPACE/outgoing/\"\nprintf '%s\\n' \"$EXPECTED_SHA\" > \"$GITHUB_WORKSPACE/outgoing/source-sha.txt\"\ncd \"$GITHUB_WORKSPACE/outgoing\"\nsha256sum ihat-identity-runtime-0.1.0.crate > SHA256SUMS\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+              "condition": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": ".github/workflows/oss-policy.yml",
+      "jobs": [
+        {
+          "job": "repository-policy",
+          "condition": null,
+          "runs_on": "ubuntu-latest",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Verify repository policy",
+              "run": "python3 .github/oss-policy-check.py",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify policy regression tests",
+              "run": "cd .github && python3 -m unittest discover -s policy-tests",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Check policy types",
+              "run": "python3 -m venv \"$RUNNER_TEMP/policy-types\"\n\"$RUNNER_TEMP/policy-types/bin/pip\" install -r .github/policy/requirements.txt\n\"$RUNNER_TEMP/policy-types/bin/mypy\" --strict .github/policy .github/oss-policy-check.py .github/policy-tests\n",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence_policy": "Declarations and source paths are not proof of an executed acceptance. Exact CI head and result are recorded separately. No live accounts or production acceptance is inferred."
+}
