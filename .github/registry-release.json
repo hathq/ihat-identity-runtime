@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "repository": "hathq/ihat-identity-runtime",
+  "defaultBranch": "main",
+  "requiredWorkflows": [
+    "cargo-package.yml",
+    "oss-policy.yml"
+  ],
+  "packages": [
+    {
+      "ecosystem": "cargo",
+      "manifest": "Cargo.toml",
+      "name": "ihat-identity-runtime",
+      "installDirectory": "."
+    }
+  ]
+}
