@@ -1,4 +1,6 @@
 [package]
+categories = ["authentication"]
+keywords = ["authentication", "identity-management", "device-management", "session-management", "rust"]
 include = ["src/**", "tests/**", "schemas/**", "docs/**", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE*", "NOTICE*"]
 readme = "README.md"
 repository = "https://github.com/hathq/ihat-identity-runtime"
