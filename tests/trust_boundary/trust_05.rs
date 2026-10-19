@@ -14,7 +14,7 @@ impl AssertionSigner for Signer {
         "test-key"
     }
     fn sign(&self, payload: &[u8]) -> Result<String, RuntimeError> {
-        Ok(format!("sha256:{:x}", Sha256::digest(payload)))
+        Ok((Sha256::digest(payload)).iter().fold(String::from("sha256:"), |mut encoded, byte| { use std::fmt::Write as _; write!(encoded, "{byte:02x}").expect("writing to String cannot fail"); encoded }))
     }
 }
 
@@ -30,7 +30,7 @@ impl AssertionSigner for StatusSigner {
         let mut digest = Sha256::new();
         digest.update(b"status\0");
         digest.update(payload);
-        Ok(format!("sha256:{:x}", digest.finalize()))
+        Ok((digest.finalize()).iter().fold(String::from("sha256:"), |mut encoded, byte| { use std::fmt::Write as _; write!(encoded, "{byte:02x}").expect("writing to String cannot fail"); encoded }))
     }
 }
 

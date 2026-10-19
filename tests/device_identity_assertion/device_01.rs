@@ -18,7 +18,7 @@ impl AssertionSigner for DeterministicSigner {
         let mut digest = Sha256::new();
         digest.update(b"deterministic-test-signing-key\0");
         digest.update(payload);
-        Ok(format!("sha256:{:x}", digest.finalize()))
+        Ok((digest.finalize()).iter().fold(String::from("sha256:"), |mut encoded, byte| { use std::fmt::Write as _; write!(encoded, "{byte:02x}").expect("writing to String cannot fail"); encoded }))
     }
 }
 
@@ -42,7 +42,7 @@ impl AssertionSigner for DeterministicStatusSigner {
         let mut digest = Sha256::new();
         digest.update(b"deterministic-status-signing-key\0");
         digest.update(payload);
-        Ok(format!("sha256:{:x}", digest.finalize()))
+        Ok((digest.finalize()).iter().fold(String::from("sha256:"), |mut encoded, byte| { use std::fmt::Write as _; write!(encoded, "{byte:02x}").expect("writing to String cannot fail"); encoded }))
     }
 }
 
