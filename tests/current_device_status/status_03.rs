@@ -44,5 +44,5 @@ fn signature(key: &[u8], payload: &[u8]) -> String {
     digest.update(key);
     digest.update(b"\0");
     digest.update(payload);
-    format!("sha256:{:x}", digest.finalize())
+    (digest.finalize()).iter().fold(String::from("sha256:"), |mut encoded, byte| { use std::fmt::Write as _; write!(encoded, "{byte:02x}").expect("writing to String cannot fail"); encoded })
 }

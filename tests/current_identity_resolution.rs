@@ -20,7 +20,13 @@ impl AssertionSigner for TestSigner {
         let mut digest = Sha256::new();
         digest.update(self.0.as_bytes());
         digest.update(payload);
-        Ok(format!("sha256:{:x}", digest.finalize()))
+        Ok((digest.finalize())
+            .iter()
+            .fold(String::from("sha256:"), |mut encoded, byte| {
+                use std::fmt::Write as _;
+                write!(encoded, "{byte:02x}").expect("writing to String cannot fail");
+                encoded
+            }))
     }
 }
 

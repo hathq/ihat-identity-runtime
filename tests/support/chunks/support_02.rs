@@ -47,7 +47,7 @@ impl PairwiseSubjectDeriver for TestPairwiseDeriver {
         digest.update(account_id.as_bytes());
         digest.update(b"\0");
         digest.update(service_id.as_bytes());
-        Ok(format!("ps-{:x}", digest.finalize()))
+        Ok((digest.finalize()).iter().fold(String::from("ps-"), |mut encoded, byte| { use std::fmt::Write as _; write!(encoded, "{byte:02x}").expect("writing to String cannot fail"); encoded }))
     }
 }
 
